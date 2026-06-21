@@ -29,7 +29,6 @@ function parser(context) {
         if (!timeStr) return 0; // 防御性判断，防止传入 undefined 导致崩溃
         const time = timeStr.trim().split(":");
         let h = 0, m = 0, sStr = "";
-
         // 兼容包含小时和不包含小时的两种时间格式
         if (time.length === 3) { // 格式: hh:mm:ss.mmm
             h = parseInt(time[0]) * 3600000;
