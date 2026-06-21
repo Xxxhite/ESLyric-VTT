@@ -78,12 +78,14 @@ function parser(context) {
         // 并使用正则表达式 /<[^>]+>/g 清除所有类似 <b>, <v Speaker> 的富文本标签，防止显示为乱码
         let lyricText = lines.slice(timeLineIndex + 1).join(' ').replace(/<[^>]+>/g, '');
         // 组装最终的区块对象并推入 blocks 数组
-        let block = {
-            startTime: toTimeStamp(start),
-            endTime: toTimeStamp(end),
-            text: lyricText
-        };
-        blocks.push(block);
+        const startTime = toTimeStamp(start);
+        const endTime = toTimeStamp(end);
+        if (!Number.isFinite(startTime) || !Number.isFinite(endTime) || endTime < startTime) continue;
+        blocks.push({
+            startTime: startTime,
+            endTime: endTime,
+            text: lyricText.trim()
+        });
     }
     return blocks;
 }
